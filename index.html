@@ -6,14 +6,10 @@
 <title>CSV → Hindi Unicode Converter</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
-
-:root {
-  --saffron:#FF6B00; --saffron2:#FF9933; --gold:#F9A825;
-  --green:#2e7d32; --bg:#0f0c29; --bg2:#1a1640;
-  --card:rgba(255,255,255,0.05); --card-solid:#1e1b4b;
-  --border:rgba(255,255,255,0.1); --border2:rgba(255,153,51,0.3);
-  --text:#f0eeff; --muted:#9993cc; --processing:#42a5f5;
-}
+:root{--saffron:#FF6B00;--saffron2:#FF9933;--gold:#F9A825;--green:#2e7d32;
+  --bg:#0f0c29;--bg2:#1a1640;--card:rgba(255,255,255,0.05);--card-solid:#1e1b4b;
+  --border:rgba(255,255,255,0.1);--border2:rgba(255,153,51,0.3);
+  --text:#f0eeff;--muted:#9993cc;--processing:#42a5f5}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Baloo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:
@@ -21,7 +17,6 @@ body::before{content:'';position:fixed;inset:0;background:
   radial-gradient(ellipse 60% 50% at 80% 100%,rgba(26,35,126,.5) 0%,transparent 60%);
   pointer-events:none;z-index:0}
 
-/* HEADER */
 header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:center;gap:16px;
   border-bottom:1px solid var(--border2);background:rgba(15,12,41,.9);backdrop-filter:blur(12px)}
 .logo-ring{width:50px;height:50px;border:3px solid var(--saffron2);border-radius:50%;
@@ -33,30 +28,8 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
   -webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .header-text p{font-size:12px;color:var(--muted);margin-top:3px}
 
-/* API KEY BAR */
-.apikey-bar{position:relative;z-index:10;background:rgba(20,17,55,.97);
-  border-bottom:2px solid var(--border2);padding:12px 36px;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.apikey-bar label{font-size:13px;font-weight:700;color:var(--saffron2);white-space:nowrap;flex-shrink:0}
-.key-row{display:flex;align-items:center;gap:8px;flex:1;min-width:260px;max-width:540px}
-.key-input{flex:1;background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;
-  padding:8px 14px;font-family:monospace;font-size:13px;color:var(--text);outline:none;
-  transition:border-color .2s}
-.key-input:focus{border-color:var(--saffron2)}
-.key-input.valid{border-color:#4caf50}
-.key-toggle{background:rgba(255,255,255,.08);border:1px solid var(--border);
-  border-radius:7px;color:var(--muted);cursor:pointer;font-size:15px;padding:6px 9px;
-  transition:background .2s}
-.key-toggle:hover{background:rgba(255,255,255,.15)}
-.key-status{font-size:12px;white-space:nowrap;min-width:120px}
-.key-hint{font-size:11px;color:var(--muted);flex-basis:100%}
-.key-hint a{color:var(--saffron2);text-decoration:none}
-.key-hint a:hover{text-decoration:underline}
-
-/* MAIN */
 .main{position:relative;z-index:5;max-width:1100px;margin:0 auto;padding:28px 22px 60px}
 
-/* STEPS */
 .steps{display:flex;margin-bottom:28px;background:var(--card);
   border:1px solid var(--border);border-radius:13px;overflow:hidden;backdrop-filter:blur(8px)}
 .step{flex:1;padding:13px 16px;display:flex;align-items:center;gap:9px;
@@ -72,26 +45,23 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 .step-label{font-size:12px;font-weight:600;color:var(--muted)}
 .step.active .step-label,.step.done .step-label{color:var(--text)}
 
-/* UPLOAD */
 .upload-zone{border:2px dashed rgba(255,153,51,.4);border-radius:18px;padding:48px 36px;
   text-align:center;cursor:pointer;transition:all .3s;background:var(--card);
-  backdrop-filter:blur(8px);margin-bottom:22px}
+  backdrop-filter:blur(8px);margin-bottom:22px;position:relative}
 .upload-zone:hover,.upload-zone.drag-over{border-color:var(--saffron2);
   background:rgba(255,153,51,.06);transform:translateY(-2px)}
 .upload-icon{font-size:46px;display:block;margin-bottom:13px;animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .upload-zone h2{font-size:18px;font-weight:700;margin-bottom:5px}
 .upload-zone p{font-size:13px;color:var(--muted)}
-.upload-zone input[type=file]{display:none}
 .file-badge{display:none;margin-top:13px;background:rgba(255,153,51,.15);
   border:1px solid var(--border2);border-radius:30px;padding:5px 14px;
-  font-size:13px;align-items:center;gap:6px}
+  font-size:13px;align-items:center;gap:6px;justify-content:center}
 
-/* PANELS */
 .panel{background:var(--card);border:1px solid var(--border);border-radius:15px;
   padding:24px;margin-bottom:22px;backdrop-filter:blur(8px);display:none}
 .panel h3{font-size:15px;font-weight:700;color:var(--saffron2);margin-bottom:4px}
-.panel > p{font-size:13px;color:var(--muted);margin-bottom:17px}
+.panel>p{font-size:13px;color:var(--muted);margin-bottom:17px}
 .col-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px;margin-bottom:18px}
 .col-chip{display:flex;align-items:center;gap:9px;background:var(--bg2);
   border:2px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer;
@@ -109,7 +79,6 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 .p-chip{background:rgba(255,255,255,.06);border:1px solid var(--border);
   border-radius:20px;padding:2px 9px;font-size:11px}
 
-/* CONTROL PANEL */
 .ctrl{display:flex;flex-wrap:wrap;gap:13px;align-items:center;
   background:var(--card);border:1px solid var(--border);border-radius:15px;
   padding:16px 20px;margin-bottom:22px;backdrop-filter:blur(8px);display:none}
@@ -119,7 +88,6 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 .sbox .num{font-size:22px;font-weight:800;color:var(--saffron2);line-height:1}
 .sbox .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:2px}
 
-/* BUTTONS */
 .btn{padding:10px 20px;border:none;border-radius:9px;font-family:inherit;
   font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;
   display:inline-flex;align-items:center;gap:7px}
@@ -133,7 +101,6 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 .btn-o{background:transparent;color:var(--saffron2);border:2px solid var(--saffron2)}
 .btn-o:hover{background:rgba(255,153,51,.1)}
 
-/* PROGRESS */
 .prog{background:var(--card);border:1px solid var(--border);border-radius:15px;
   padding:20px;margin-bottom:22px;backdrop-filter:blur(8px);display:none}
 .prog h3{font-size:14px;font-weight:700;margin-bottom:11px;color:var(--saffron2)}
@@ -146,32 +113,24 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 .cur{font-size:13px;color:var(--processing);font-weight:600;margin-top:8px;min-height:20px;
   font-family:'Noto Sans Devanagari',sans-serif}
 
-/* TABLE */
 .tbl-sec{display:none}
-.tbl-hdr{display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:13px;flex-wrap:wrap;gap:8px}
+.tbl-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:8px}
 .tbl-hdr h3{font-size:15px;font-weight:700}
-.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:15px;
-  overflow:hidden;backdrop-filter:blur(8px)}
+.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;backdrop-filter:blur(8px)}
 .tscroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:460px}
-thead tr{background:linear-gradient(90deg,rgba(26,35,126,.8),rgba(40,53,147,.8));
-  border-bottom:1px solid var(--border2)}
-th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;
-  color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px;white-space:nowrap}
-th.cc{color:var(--saffron2)} th.hc{color:#80cbc4}
+thead tr{background:linear-gradient(90deg,rgba(26,35,126,.8),rgba(40,53,147,.8));border-bottom:1px solid var(--border2)}
+th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px;white-space:nowrap}
+th.cc{color:var(--saffron2)}th.hc{color:#80cbc4}
 tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
 tbody tr:hover{background:rgba(255,153,51,.04)}
 td{padding:8px 13px;font-size:13px;vertical-align:middle;color:var(--muted)}
 td.rn{color:rgba(255,255,255,.2);font-size:11px;width:34px;text-align:center}
 td.sc{color:rgba(255,255,255,.75);font-weight:600}
-td.hr{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:#e0f2f1;
-  font-weight:500;min-width:150px}
-.editable{border:1px solid transparent;border-radius:5px;padding:3px 5px;
-  cursor:text;outline:none;transition:border-color .2s;min-width:90px;display:inline-block}
+td.hr{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:#e0f2f1;font-weight:500;min-width:150px}
+.editable{border:1px solid transparent;border-radius:5px;padding:3px 5px;cursor:text;outline:none;transition:border-color .2s;min-width:90px;display:inline-block}
 .editable:focus{border-color:var(--saffron);background:rgba(255,107,0,.06)}
-.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;
-  border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
 .bp{background:rgba(255,107,0,.1);color:#FF9933;border:1px solid rgba(255,153,51,.25)}
 .bd{background:rgba(76,175,80,.1);color:#81c784;border:1px solid rgba(76,175,80,.25)}
 .bc{background:rgba(66,165,245,.1);color:#64b5f6;border:1px solid rgba(66,165,245,.25)}
@@ -181,7 +140,10 @@ td.hr{font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:#e0f2f1
 @keyframes spin{to{transform:rotate(360deg)}}
 
 footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;
-  border-top:1px solid var(--border);position:relative;z-index:5}
+  border-top:1px solid var(--border);position:relative;z-index:5;line-height:2}
+footer a{color:var(--saffron2);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
 .toast{position:fixed;bottom:22px;right:22px;background:var(--card-solid);
   border:1px solid var(--border2);border-radius:10px;padding:11px 17px;
   font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;
@@ -190,7 +152,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;
 .toast.show{transform:translateY(0);opacity:1}
 
 @media(max-width:580px){
-  header,.apikey-bar{padding:14px 16px}
+  header{padding:14px 16px}
   .main{padding:18px 12px 40px}
   .steps{flex-direction:column}
   .step{border-right:none;border-bottom:1px solid var(--border)}
@@ -208,22 +170,6 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;
   </div>
 </header>
 
-<!-- API KEY -->
-<div class="apikey-bar" style="display:none">
-  <label>🔑 Anthropic API Key:</label>
-  <div class="key-row">
-    <input class="key-input" type="password" id="apiKeyInput"
-      placeholder="sk-ant-api03-xxxxxxxxxxxxxxxx"
-      oninput="onKeyInput()" autocomplete="off" spellcheck="false">
-    <button class="key-toggle" onclick="toggleVis()" title="Show/Hide key">👁</button>
-    <span class="key-status" id="kStatus"></span>
-  </div>
-  <div class="key-hint">
-    🔒 Key सिर्फ आपके browser में रहती है, कहीं save नहीं होती। &nbsp;
-    <a href="https://console.anthropic.com/settings/keys" target="_blank">Key यहाँ से बनाएं →</a>
-  </div>
-</div>
-
 <div class="main">
 
   <div class="steps">
@@ -233,13 +179,15 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;
     <div class="step" id="step4"><div class="step-num">4</div><div class="step-label">Download</div></div>
   </div>
 
-  <!-- UPLOAD -->
-  <div class="upload-zone" id="upZone" onclick="document.getElementById('fi').click()">
+  <!-- FILE INPUT — outside upload zone to prevent click loop -->
+  <input type="file" id="fi" accept=".csv" style="display:none">
+
+  <!-- UPLOAD ZONE -->
+  <div class="upload-zone" id="upZone">
     <span class="upload-icon">📂</span>
     <h2>CSV File यहाँ Drop करें</h2>
     <p>या क्लिक करके browse करें &nbsp;·&nbsp; .csv format supported</p>
     <div class="file-badge" id="fBadge">📄 <span id="fName"></span></div>
-    <input type="file" id="fi" accept=".csv">
   </div>
 
   <!-- COLUMN SELECTOR -->
@@ -289,299 +237,307 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;
 
 </div>
 
-<footer>Hindi Unicode CSV Converter &nbsp;·&nbsp; Powered by Claude AI &nbsp;·&nbsp; Data stays in your browser only<br><span style="margin-top:4px;display:inline-block">Designed &amp; Maintained by <strong>Vaibhav Vijay</strong> &nbsp;·&nbsp; Contact: <a href="/cdn-cgi/l/email-protection#e09681898288968ad0d0a0818f8cce838f8d" style="color:var(--saffron2);text-decoration:none"><span class="__cf_email__" data-cfemail="780e19111a100e12484838191714561b1715">[email&#160;protected]</span></a></span></footer>
+<footer>
+  Hindi Unicode CSV Converter &nbsp;·&nbsp; Powered by Claude AI &nbsp;·&nbsp; Data stays in your browser only<br>
+  Designed &amp; Maintained by <strong>Vaibhav Vijay</strong> &nbsp;·&nbsp; Contact: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#118;&#97;&#105;&#98;&#104;&#118;&#106;&#48;&#48;&#64;&#97;&#111;&#108;&#46;&#99;&#111;&#109;">vaibhvj00&#64;aol.com</a>
+</footer>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// STATE
+<script>
+// ── STATE ──
 let rows=[], hdrs=[], selCols=new Set(), results={}, running=false;
 
-const SYS=`You are a Hindi translator. Translate the given English or Hinglish text into Hindi Devanagari script.
+// ── WORKER URL — both root and /translate tried automatically ──
+const WORKER_BASE = 'https://censustraslate.vaibhvj00.workers.dev';
+
+const SYS = `You are a Hindi translator. Translate the given English or Hinglish text into Hindi Devanagari script.
 Output ONLY the Hindi Devanagari text. No explanation, no English words, nothing else.
 Proper nouns: transliterate phonetically into Devanagari.`;
 
-// API KEY
-// Proxy URL — यहाँ अपना proxy URL डालें
-const PROXY_URL = 'https://censustraslate.vaibhvj00.workers.dev/translate';
-function getKey(){return (document.getElementById('apiKeyInput').value||'').trim();}
-function onKeyInput(){
-  const k=getKey(),s=document.getElementById('kStatus'),inp=document.getElementById('apiKeyInput');
-  if(k.startsWith('sk-ant-')&&k.length>20){
-    s.innerHTML='<span style="color:#81c784">✓ Valid</span>';inp.classList.add('valid');
-  }else if(k.length>4){
-    s.innerHTML='<span style="color:#ef9a9a">⚠ Check format</span>';inp.classList.remove('valid');
-  }else{s.innerHTML='';inp.classList.remove('valid')}
-}
-function toggleVis(){
-  const i=document.getElementById('apiKeyInput');
-  i.type=i.type==='password'?'text':'password';
-}
+// ── FILE UPLOAD ──
+const fi  = document.getElementById('fi');
+const zone = document.getElementById('upZone');
 
-// UPLOAD
-const zone=document.getElementById('upZone');
-zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over')});
-zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
-zone.addEventListener('drop',e=>{
-  e.preventDefault();zone.classList.remove('drag-over');
-  const f=e.dataTransfer.files[0];
-  if(f&&f.name.toLowerCase().endsWith('.csv'))readFile(f);
-  else toast('❌ सिर्फ .csv file upload करें');
+// Click on zone → open file picker
+zone.addEventListener('click', () => fi.click());
+
+// Drag & drop
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => {
+  e.preventDefault(); zone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && f.name.toLowerCase().endsWith('.csv')) readFile(f);
+  else showToast('❌ सिर्फ .csv file upload करें');
 });
-document.getElementById('fi').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0])});
 
-function readFile(f){
-  const r=new FileReader();
-  r.onload=e=>parseCSV(e.target.result,f.name);
-  r.readAsText(f,'UTF-8');
+// File input change
+fi.addEventListener('change', e => { if (e.target.files[0]) readFile(e.target.files[0]); });
+
+function readFile(f) {
+  const r = new FileReader();
+  r.onload = e => parseCSV(e.target.result, f.name);
+  r.onerror = () => showToast('❌ File read error');
+  r.readAsText(f, 'UTF-8');
 }
-function parseCSV(txt,name){
-  txt=txt.replace(/^\uFEFF/,'');
-  const lines=txt.split(/\r?\n/).filter(l=>l.trim());
-  if(lines.length<2){toast('❌ CSV में data नहीं');return}
-  hdrs=csvRow(lines[0]);
-  rows=lines.slice(1).map(l=>{
-    const v=csvRow(l),o={};
-    hdrs.forEach((h,i)=>o[h]=v[i]??'');
+
+function parseCSV(txt, name) {
+  txt = txt.replace(/^\uFEFF/, '');
+  const lines = txt.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) { showToast('❌ CSV में data नहीं'); return; }
+  hdrs = csvRow(lines[0]);
+  rows = lines.slice(1).map(l => {
+    const v = csvRow(l), o = {};
+    hdrs.forEach((h, i) => o[h] = v[i] ?? '');
     return o;
-  }).filter(r=>hdrs.some(h=>r[h]?.trim()));
-  if(!rows.length){toast('❌ कोई valid row नहीं मिली');return}
-  const b=document.getElementById('fBadge');
-  b.style.display='inline-flex';
-  document.getElementById('fName').textContent=`${name} — ${rows.length} rows, ${hdrs.length} columns`;
+  }).filter(r => hdrs.some(h => r[h]?.trim()));
+  if (!rows.length) { showToast('❌ कोई valid row नहीं मिली'); return; }
+  const b = document.getElementById('fBadge');
+  b.style.display = 'inline-flex';
+  document.getElementById('fName').textContent = `${name} — ${rows.length} rows, ${hdrs.length} columns`;
   setStep(2);
   buildCols();
-  document.getElementById('colPanel').style.display='block';
-  toast(`✅ ${rows.length} rows load हुईं!`);
-}
-function csvRow(line){
-  const r=[];let cur='',q=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
-    if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}
-    else if(c===','&&!q){r.push(cur.trim());cur=''}
-    else cur+=c;
-  }
-  r.push(cur.trim());return r;
+  document.getElementById('colPanel').style.display = 'block';
+  showToast(`✅ ${rows.length} rows load हुईं!`);
 }
 
-// COLUMN SELECTOR
-function buildCols(){
-  const g=document.getElementById('colGrid');g.innerHTML='';
-  hdrs.forEach(col=>{
-    const d=document.createElement('div');
-    d.className='col-chip';d.dataset.col=col;
-    d.innerHTML=`<div class="chk"></div><span>${esc(col)}</span>`;
-    d.addEventListener('click',()=>toggleCol(col,d));
+function csvRow(line) {
+  const r = []; let cur = '', q = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (q && line[i+1] === '"') { cur += '"'; i++; } else q = !q; }
+    else if (c === ',' && !q) { r.push(cur.trim()); cur = ''; }
+    else cur += c;
+  }
+  r.push(cur.trim()); return r;
+}
+
+// ── COLUMN SELECTOR ──
+function buildCols() {
+  const g = document.getElementById('colGrid'); g.innerHTML = '';
+  hdrs.forEach(col => {
+    const d = document.createElement('div');
+    d.className = 'col-chip'; d.dataset.col = col;
+    d.innerHTML = `<div class="chk"></div><span>${esc(col)}</span>`;
+    d.addEventListener('click', () => toggleCol(col, d));
     g.appendChild(d);
   });
 }
-function toggleCol(col,chip){
-  if(selCols.has(col)){selCols.delete(col);chip.classList.remove('sel');chip.querySelector('.chk').textContent=''}
-  else{selCols.add(col);chip.classList.add('sel');chip.querySelector('.chk').textContent='✓'}
+function toggleCol(col, chip) {
+  if (selCols.has(col)) { selCols.delete(col); chip.classList.remove('sel'); chip.querySelector('.chk').textContent = ''; }
+  else { selCols.add(col); chip.classList.add('sel'); chip.querySelector('.chk').textContent = '✓'; }
   updatePrev();
-  document.getElementById('btnProc').style.display=selCols.size?'inline-flex':'none';
+  document.getElementById('btnProc').style.display = selCols.size ? 'inline-flex' : 'none';
 }
-function updatePrev(){
-  const pb=document.getElementById('prevBox'),pc=document.getElementById('pChips');
-  if(!selCols.size){pb.style.display='none';return}
-  pb.style.display='block';
-  const s=[];
-  rows.slice(0,10).forEach(r=>selCols.forEach(c=>{if(r[c]?.trim())s.push(r[c].trim())}));
-  pc.innerHTML=[...new Set(s)].slice(0,12).map(v=>`<div class="p-chip">${esc(v.substring(0,40))}${v.length>40?'…':''}</div>`).join('');
+function updatePrev() {
+  const pb = document.getElementById('prevBox'), pc = document.getElementById('pChips');
+  if (!selCols.size) { pb.style.display = 'none'; return; }
+  pb.style.display = 'block';
+  const s = [];
+  rows.slice(0, 10).forEach(r => selCols.forEach(c => { if (r[c]?.trim()) s.push(r[c].trim()); }));
+  pc.innerHTML = [...new Set(s)].slice(0, 12)
+    .map(v => `<div class="p-chip">${esc(v.substring(0, 40))}${v.length > 40 ? '…' : ''}</div>`).join('');
 }
-function proceed(){
-  if(!selCols.size){toast('⚠️ कम से कम एक column चुनें');return}
+function proceed() {
+  if (!selCols.size) { showToast('⚠️ कम से कम एक column चुनें'); return; }
   setStep(3);
-  initRes();renderTable();
-  document.getElementById('ctrlPanel').style.display='flex';
-  document.getElementById('tblSec').style.display='block';
-  document.getElementById('tblTitle').textContent=`Data (${rows.length} rows)`;
+  initRes(); renderTable();
+  document.getElementById('ctrlPanel').style.display = 'flex';
+  document.getElementById('tblSec').style.display = 'block';
+  document.getElementById('tblTitle').textContent = `Data (${rows.length} rows)`;
   updStats();
 }
 
-// RESULTS
-function initRes(){
-  results={};
-  rows.forEach((_,i)=>{results[i]={};selCols.forEach(c=>{results[i][c]=null})});
+// ── RESULTS ──
+function initRes() {
+  results = {};
+  rows.forEach((_, i) => { results[i] = {}; selCols.forEach(c => { results[i][c] = null; }); });
 }
 
-// TABLE
-function cid(c){return c.replace(/[^a-zA-Z0-9]/g,'_')}
-function renderTable(){
-  document.getElementById('tHead').innerHTML=
-    `<th>#</th>`+
-    hdrs.map(h=>`<th class="${selCols.has(h)?'cc':''}">${esc(h)}${selCols.has(h)?' 🔄':''}</th>`).join('')+
-    [...selCols].map(c=>`<th class="hc">${esc(c)} (हिंदी)</th>`).join('')+
+// ── TABLE ──
+function cid(c) { return c.replace(/[^a-zA-Z0-9]/g, '_'); }
+function renderTable() {
+  document.getElementById('tHead').innerHTML =
+    `<th>#</th>` +
+    hdrs.map(h => `<th class="${selCols.has(h) ? 'cc' : ''}">${esc(h)}${selCols.has(h) ? ' 🔄' : ''}</th>`).join('') +
+    [...selCols].map(c => `<th class="hc">${esc(c)} (हिंदी)</th>`).join('') +
     `<th>स्थिति</th>`;
-  document.getElementById('tBody').innerHTML=rows.slice(0,300).map((row,i)=>
-    `<tr id="r${i}"><td class="rn">${i+1}</td>`+
-    hdrs.map(h=>`<td class="${selCols.has(h)?'sc':''}">${esc(row[h]??'')}</td>`).join('')+
-    [...selCols].map(c=>`<td class="hr"><span class="editable" id="h${i}_${cid(c)}" contenteditable="true"></span></td>`).join('')+
+  document.getElementById('tBody').innerHTML = rows.slice(0, 300).map((row, i) =>
+    `<tr id="r${i}"><td class="rn">${i+1}</td>` +
+    hdrs.map(h => `<td class="${selCols.has(h) ? 'sc' : ''}">${esc(row[h] ?? '')}</td>`).join('') +
+    [...selCols].map(c => `<td class="hr"><span class="editable" id="h${i}_${cid(c)}" contenteditable="true"></span></td>`).join('') +
     `<td id="st${i}"><span class="badge bp">Pending</span></td></tr>`
   ).join('');
 }
-function setSt(i,s){
-  const el=document.getElementById('st'+i);if(!el)return;
-  const m={processing:`<span class="badge bc"><span class="sp"></span> Converting</span>`,
-    done:`<span class="badge bd">✓ पूर्ण</span>`,
-    error:`<span class="badge be">✗ त्रुटि</span>`,
-    pending:`<span class="badge bp">Pending</span>`};
-  el.innerHTML=m[s]||m.pending;
+function setSt(i, s) {
+  const el = document.getElementById('st' + i); if (!el) return;
+  const m = {
+    processing: `<span class="badge bc"><span class="sp"></span> Converting</span>`,
+    done:       `<span class="badge bd">✓ पूर्ण</span>`,
+    error:      `<span class="badge be">✗ त्रुटि</span>`,
+    pending:    `<span class="badge bp">Pending</span>`
+  };
+  el.innerHTML = m[s] || m.pending;
 }
-function setCell(i,col,txt){
-  const el=document.getElementById(`h${i}_${cid(col)}`);if(el)el.textContent=txt;
+function setCell(i, col, txt) {
+  const el = document.getElementById(`h${i}_${cid(col)}`); if (el) el.textContent = txt;
 }
 
-// STATS
-function updStats(){
-  let done=0,err=0,pend=0;
-  rows.forEach((_,i)=>{
-    const v=[...selCols].map(c=>results[i]?.[c]);
-    if(v.every(x=>x==='ERROR'))err++;
-    else if(v.every(x=>x!==null))done++;
+// ── STATS ──
+function updStats() {
+  let done = 0, err = 0, pend = 0;
+  rows.forEach((_, i) => {
+    const v = [...selCols].map(c => results[i]?.[c]);
+    if (v.every(x => x === 'ERROR')) err++;
+    else if (v.every(x => x !== null)) done++;
     else pend++;
   });
-  document.getElementById('sTot').textContent=rows.length;
-  document.getElementById('sDone').textContent=done;
-  document.getElementById('sPend').textContent=pend;
-  document.getElementById('sErr').textContent=err;
-  if(done+err===rows.length&&rows.length>0){
-    document.getElementById('btnDL').disabled=false;
-    if(err>0)document.getElementById('btnRetry').style.display='inline-flex';
+  document.getElementById('sTot').textContent  = rows.length;
+  document.getElementById('sDone').textContent = done;
+  document.getElementById('sPend').textContent = pend;
+  document.getElementById('sErr').textContent  = err;
+  if (done + err === rows.length && rows.length > 0) {
+    document.getElementById('btnDL').disabled = false;
+    if (err > 0) document.getElementById('btnRetry').style.display = 'inline-flex';
     setStep(4);
   }
 }
 
-// API
-async function callAPI(text){
-  if(!PROXY_URL||PROXY_URL==='YOUR_PROXY_URL_HERE')throw new Error('PROXY_URL set नहीं है — HTML में PROXY_URL डालें');
-  const key=getKey();
+// ── API CALL — tries /translate first, then root ──
+async function callAPI(text) {
+  // Try /translate endpoint first, fallback to root
+  const endpoints = [WORKER_BASE + '/translate', WORKER_BASE + '/'];
+  let lastErr = '';
 
-  // Proxy को call करें — API key server पर छुपी है
-  const res=await fetch(PROXY_URL,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({text:text})
-  });
-
-  if(!res.ok){
-    let msg='HTTP '+res.status;
-    try{const d=await res.json();msg=d.error?.message||msg}catch{}
-    if(res.status===401)throw new Error('Proxy Auth error — server config check करें');
-    if(res.status===429)throw new Error('Rate limit — थोड़ी देर बाद retry करें');
-    if(res.status===400)throw new Error('Request error: '+msg);
-    throw new Error(msg);
+  for (const url of endpoints) {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      if (res.status === 404) continue; // try next endpoint
+      if (!res.ok) {
+        let msg = 'HTTP ' + res.status;
+        try { const d = await res.json(); msg = d.error || msg; } catch {}
+        if (res.status === 429) throw new Error('Rate limit — थोड़ी देर बाद retry करें');
+        throw new Error(msg);
+      }
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const out = (data.hindi || '').trim();
+      if (!out) throw new Error('Worker से empty response आई');
+      return out;
+    } catch (e) {
+      if (e.message.includes('Rate limit')) throw e;
+      lastErr = e.message;
+    }
   }
-  const data=await res.json();
-  if(data.error)throw new Error(data.error);
-  const out=(data.hindi||'').trim();
-  if(!out)throw new Error('Proxy से empty response आई');
-  return out;
+  throw new Error('Worker error: ' + lastErr);
 }
 
-// CONVERSION
-async function startConv(){
-  if(running)return;
-  const key=getKey();
-  if(!key){toast('❌ API Key missing');return}
+// ── CONVERSION ──
+async function startConv() {
+  if (running) return;
+  running = true;
+  document.getElementById('btnStart').disabled = true;
+  document.getElementById('btnStart').innerHTML = '<span class="sp" style="border-top-color:white;border-color:rgba(255,255,255,.2)"></span> Processing...';
+  document.getElementById('progSec').style.display = 'block';
 
-  running=true;
-  document.getElementById('btnStart').disabled=true;
-  document.getElementById('btnStart').innerHTML='<span class="sp" style="border-top-color:white;border-color:rgba(255,255,255,.2)"></span> Processing...';
-  document.getElementById('progSec').style.display='block';
-
-  const pending=[];
-  rows.forEach((_,i)=>{
-    selCols.forEach(c=>{
-      if(!results[i])results[i]={};
-      if(results[i][c]===null||results[i][c]==='ERROR')pending.push({i,c});
+  const pending = [];
+  rows.forEach((_, i) => {
+    selCols.forEach(c => {
+      if (!results[i]) results[i] = {};
+      if (results[i][c] === null || results[i][c] === 'ERROR') pending.push({ i, c });
     });
   });
 
-  let done=0;
-  for(const {i,c} of pending){
-    const src=(rows[i][c]||'').trim();
-    if(!src){results[i][c]='';setCell(i,c,'');done++;continue}
+  let done = 0;
+  for (const { i, c } of pending) {
+    const src = (rows[i][c] || '').trim();
+    if (!src) { results[i][c] = ''; setCell(i, c, ''); done++; continue; }
 
-    setSt(i,'processing');
-    document.getElementById('curItem').textContent=
-      `⚙️ Row ${i+1} · "${c}" · "${src.substring(0,50)}${src.length>50?'…':''}"`;
+    setSt(i, 'processing');
+    document.getElementById('curItem').textContent =
+      `⚙️ Row ${i+1} · "${c}" · "${src.substring(0, 50)}${src.length > 50 ? '…' : ''}"`;
 
-    try{
-      const hindi=await callAPI(src);
-      results[i][c]=hindi;setCell(i,c,hindi);
-    }catch(e){
-      results[i][c]='ERROR';
-      document.getElementById('curItem').textContent='❌ Error row '+(i+1)+': '+e.message;
-      if(e.message.includes('Key')||e.message.includes('401')||e.message.includes('format')){
-        toast('❌ '+e.message);running=false;
-        document.getElementById('btnStart').disabled=false;
-        document.getElementById('btnStart').innerHTML='▶ Hindi में Convert करें';
-        return;
-      }
+    try {
+      const hindi = await callAPI(src);
+      results[i][c] = hindi; setCell(i, c, hindi);
+    } catch (e) {
+      results[i][c] = 'ERROR';
+      document.getElementById('curItem').textContent = '❌ Row ' + (i+1) + ': ' + e.message;
     }
 
     done++;
-    const pct=Math.round(done/pending.length*100);
-    document.getElementById('pBar').style.width=pct+'%';
-    document.getElementById('pTxt').textContent=done+' / '+pending.length+' पूर्ण';
-    document.getElementById('pPct').textContent=pct+'%';
-
-    const rowDone=[...selCols].every(c2=>results[i][c2]!==null);
-    if(rowDone)setSt(i,[...selCols].some(c2=>results[i][c2]==='ERROR')?'error':'done');
+    const pct = Math.round(done / pending.length * 100);
+    document.getElementById('pBar').style.width = pct + '%';
+    document.getElementById('pTxt').textContent = done + ' / ' + pending.length + ' पूर्ण';
+    document.getElementById('pPct').textContent = pct + '%';
+    const rowDone = [...selCols].every(c2 => results[i][c2] !== null);
+    if (rowDone) setSt(i, [...selCols].some(c2 => results[i][c2] === 'ERROR') ? 'error' : 'done');
     updStats();
-    await new Promise(r=>setTimeout(r,150));
+    await new Promise(r => setTimeout(r, 150));
   }
 
-  running=false;
-  const rem=Object.values(results).flatMap(r=>Object.values(r)).filter(v=>v===null||v==='ERROR').length;
-  if(rem===0){
-    document.getElementById('curItem').textContent='✅ सभी rows का Hindi रूपांतरण पूर्ण!';
-    document.getElementById('btnStart').innerHTML='✓ पूर्ण';
-    toast('🎉 Conversion complete! Download करें।');
-  }else{
-    document.getElementById('curItem').textContent=`⚠️ ${rem} cells शेष — Retry करें`;
-    document.getElementById('btnStart').disabled=false;
-    document.getElementById('btnStart').innerHTML='▶ Hindi में Convert करें';
+  running = false;
+  const rem = Object.values(results).flatMap(r => Object.values(r)).filter(v => v === null || v === 'ERROR').length;
+  if (rem === 0) {
+    document.getElementById('curItem').textContent = '✅ सभी rows का Hindi रूपांतरण पूर्ण!';
+    document.getElementById('btnStart').innerHTML = '✓ पूर्ण';
+    showToast('🎉 Conversion complete! Download करें।');
+  } else {
+    document.getElementById('curItem').textContent = `⚠️ ${rem} cells शेष — Retry करें`;
+    document.getElementById('btnStart').disabled = false;
+    document.getElementById('btnStart').innerHTML = '▶ Hindi में Convert करें';
   }
 }
 
-async function retry(){
-  document.getElementById('btnRetry').style.display='none';
-  rows.forEach((_,i)=>selCols.forEach(c=>{if(results[i]?.[c]==='ERROR')results[i][c]=null}));
+async function retry() {
+  document.getElementById('btnRetry').style.display = 'none';
+  rows.forEach((_, i) => selCols.forEach(c => { if (results[i]?.[c] === 'ERROR') results[i][c] = null; }));
   await startConv();
 }
 
-// DOWNLOAD
-function dlCSV(){
-  const nh=[...hdrs];
-  selCols.forEach(c=>{const idx=nh.indexOf(c);if(idx>=0)nh.splice(idx+1,0,c+' (Hindi)')});
-  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
-  let csv='\uFEFF'+nh.map(q).join(',')+'\n';
-  rows.forEach((row,i)=>{
-    const nr={...row};
-    selCols.forEach(c=>{
-      const el=document.getElementById(`h${i}_${cid(c)}`);
-      nr[c+' (Hindi)']=el?el.textContent.trim():(results[i]?.[c]||'');
+// ── DOWNLOAD ──
+function dlCSV() {
+  const nh = [...hdrs];
+  selCols.forEach(c => { const idx = nh.indexOf(c); if (idx >= 0) nh.splice(idx + 1, 0, c + ' (Hindi)'); });
+  const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  let csv = '\uFEFF' + nh.map(q).join(',') + '\n';
+  rows.forEach((row, i) => {
+    const nr = { ...row };
+    selCols.forEach(c => {
+      const el = document.getElementById(`h${i}_${cid(c)}`);
+      nr[c + ' (Hindi)'] = el ? el.textContent.trim() : (results[i]?.[c] || '');
     });
-    csv+=nh.map(h=>q(nr[h]??'')).join(',')+'\n';
+    csv += nh.map(h => q(nr[h] ?? '')).join(',') + '\n';
   });
-  const b64=btoa(unescape(encodeURIComponent(csv)));
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8;base64,'+b64;
-  a.download='hindi-converted.csv';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  toast('📥 CSV Downloaded!');
+  const b64 = btoa(unescape(encodeURIComponent(csv)));
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8;base64,' + b64;
+  a.download = 'hindi-converted.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast('📥 CSV Downloaded!');
 }
 
-// HELPERS
-function setStep(n){
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById('step'+i);
-    el.classList.remove('active','done');
-    if(i<n)el.classList.add('done');
-    else if(i===n)el.classList.add('active');
+// ── HELPERS ──
+function setStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('step' + i);
+    el.classList.remove('active', 'done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
   }
 }
-function esc(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&q
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
