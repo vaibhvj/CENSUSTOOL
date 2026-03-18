@@ -47,7 +47,8 @@ header{position:relative;z-index:10;padding:22px 36px;display:flex;align-items:c
 
 .upload-zone{border:2px dashed rgba(255,153,51,.4);border-radius:18px;padding:48px 36px;
   text-align:center;cursor:pointer;transition:all .3s;background:var(--card);
-  backdrop-filter:blur(8px);margin-bottom:22px;position:relative}
+  backdrop-filter:blur(8px);margin-bottom:22px;position:relative;
+  display:block;-webkit-tap-highlight-color:rgba(255,153,51,.2);touch-action:manipulation}
 .upload-zone:hover,.upload-zone.drag-over{border-color:var(--saffron2);
   background:rgba(255,153,51,.06);transform:translateY(-2px)}
 .upload-icon{font-size:46px;display:block;margin-bottom:13px;animation:float 3s ease-in-out infinite}
@@ -179,16 +180,14 @@ footer a:hover{text-decoration:underline}
     <div class="step" id="step4"><div class="step-num">4</div><div class="step-label">Download</div></div>
   </div>
 
-  <!-- FILE INPUT — outside upload zone to prevent click loop -->
-  <input type="file" id="fi" accept=".csv" style="display:none">
-
-  <!-- UPLOAD ZONE -->
-  <div class="upload-zone" id="upZone">
+  <!-- UPLOAD ZONE — file input overlaid for mobile compatibility -->
+  <label for="fi" class="upload-zone" id="upZone">
     <span class="upload-icon">📂</span>
     <h2>CSV File यहाँ Drop करें</h2>
     <p>या क्लिक करके browse करें &nbsp;·&nbsp; .csv format supported</p>
     <div class="file-badge" id="fBadge">📄 <span id="fName"></span></div>
-  </div>
+    <input type="file" id="fi" accept=".csv" style="display:none">
+  </label>
 
   <!-- COLUMN SELECTOR -->
   <div class="panel" id="colPanel">
@@ -319,9 +318,6 @@ async function callAPI(text) {
 // ── FILE UPLOAD ──
 const fi  = document.getElementById('fi');
 const zone = document.getElementById('upZone');
-
-// Click on zone → open file picker
-zone.addEventListener('click', () => fi.click());
 
 // Drag & drop
 zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
