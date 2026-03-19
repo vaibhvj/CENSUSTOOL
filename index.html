@@ -361,20 +361,32 @@ function jsFallback(text) {
     return word;
   }).join(' ');
 }
-async function myMemoryTranslate(text) {
-  const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|hi';
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('HTTP ' + res.status);
+// ── Cloudflare Worker → MyMemory (CORS solved permanently) ──
+const WORKER_URL = 'https://censustraslate.vaibhvj00.workers.dev';
+
+async function workerTranslate(text) {
+  const res = await fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text })
+  });
+  if (!res.ok) throw new Error('Worker HTTP ' + res.status);
   const data = await res.json();
-  if (data.responseStatus !== 200) throw new Error(data.responseMessage || 'API error');
-  const out = (data.responseData?.translatedText || '').trim();
-  if (!out || out.toLowerCase() === text.toLowerCase()) throw new Error('No translation');
+  if (data.error) throw new Error(data.error);
+  const out = (data.hindi || '').trim();
+  if (!out) throw new Error('Empty response');
   return out;
 }
+
 async function callAPI(text) {
-  await new Promise(r => setTimeout(r, 100));
-  try { return await myMemoryTranslate(text); }
-  catch(e) { return jsFallback(text); }
+  await new Promise(r => setTimeout(r, 80));
+  if (!text.trim()) return '';
+  try {
+    return await workerTranslate(text);
+  } catch(e) {
+    console.warn('Worker failed:', e.message);
+    return jsFallback(text);
+  }
 }
 
 // ══════════════════════════════════════════════
